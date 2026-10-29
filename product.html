@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Product - Jao Lab Fashion & Styles</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="topbar">
+    <a href="index.html" class="back">←</a>
+    <h1 id="product-title">Product</h1>
+    <a href="cart.html" class="topcart">Cart <span class="badge" id="cart-count"></span></a>
+  </div>
+
+  <div class="big-photo"></div>
+
+  <section class="panel">
+    <h2>Product overview</h2>
+    <p class="hint">Review item details and choose how you want to pay.</p>
+    <p id="product-name" class="product-name"></p>
+    <div class="buy-row">
+      <p id="product-price" class="big-price"></p>
+      <button class="buy-btn" id="buy-once">Buy Now, Once!</button>
+    </div>
+    <button class="add-cart" id="add-cart">Add to cart</button>
+  </section>
+
+  <section class="panel">
+    <h2>Plan setup</h2>
+    <p class="hint">Select payment frequency and duration.</p>
+    <div class="plan-options" id="frequency-options">
+      <button class="plan-btn" data-frequency="Weekly">Weekly</button>
+      <button class="plan-btn" data-frequency="Monthly">Monthly</button>
+    </div>
+    <p class="step-title" id="step-title"></p>
+    <div class="plan-options" id="duration-options"></div>
+    <div class="plan-summary" id="plan-summary"></div>
+    <button class="start-plan" id="start-plan" style="display:none">Start Installment Plan</button>
+  </section>
+
+  <script>window.afterApp = ["js/stock.js", "js/variants.js", "js/wishlist.js"];</script>
+  <script>window.afterApp = ["js/stock.js", "js/variants.js", "js/wishlist.js", "js/reviews.js"];</script>
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/gate.js"></script>
+</body>
+</html>

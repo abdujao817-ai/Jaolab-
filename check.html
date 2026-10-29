@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Check</title>
+</head>
+<body style="background:#111;color:#fff;font-family:Arial;padding:16px;line-height:1.8">
+  <h2>Site check</h2>
+  <p id="r1">Page HTML: working ✔</p>
+  <p id="r2">data.js: checking...</p>
+  <p id="r3">Products loaded: checking...</p>
+  <p id="r4">app.js: checking...</p>
+
+  <script src="js/data.js"></script>
+  <script>
+    setTimeout(function () {
+      document.getElementById("r2").textContent =
+        typeof SUPABASE_URL !== "undefined" ? "data.js: loaded ✔" : "data.js: NOT loaded ✘";
+      document.getElementById("r3").textContent =
+        typeof products !== "undefined" ? "Products loaded: " + products.length : "Products loaded: ✘";
+      document.getElementById("r4").textContent =
+        typeof formatPrice === "function" ? "app.js: loaded ✔" : "app.js: NOT loaded ✘ (it has a typing error)";
+    }, 2000);
+  </script>
+</body>
+</html>

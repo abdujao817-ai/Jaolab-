@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jao Lab Fashion & Styles</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header>
+    <div class="logo">Jao Lab <span>Fashion & Styles</span></div>
+    <div class="search">
+      <input type="text" id="search-input" placeholder="Search fashion...">
+      <button>
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      </button>
+    </div>
+    <div class="tabs">
+      <a href="#" class="active" data-category="All">All</a>
+      <a href="#" data-category="Deals">Deals</a>
+      <a href="#" data-category="Women">Women</a>
+      <a href="#" data-category="Men">Men</a>
+      <a href="#" data-category="Kids">Kids</a>
+      <a href="#" data-category="Shoes">Shoes</a>
+      <a href="#" data-category="Bags">Bags</a>
+      <a href="#" data-category="Accessories">Accessories</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="grid" id="product-grid"></section>
+  </main>
+
+  <nav class="bottom-nav">
+    <a href="index.html" class="active">
+      <svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg>
+      <span>Home</span>
+    </a>
+    <a href="categories.html">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      <span>Categories</span>
+    </a>
+    <a href="wishlist.html">
+      <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      <span>Wishlist</span>
+    </a>
+    <a href="you.html">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
+      <span>You</span>
+    </a>
+    <a href="cart.html">
+      <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
+      <span>Cart</span>
+      <span class="badge" id="cart-count"></span>
+    </a>
+  </nav>
+
+  <script>window.afterApp = ["js/stock.js", "js/wishlist.js"];</script>
+  <script>window.afterApp = ["js/stock.js", "js/wishlist.js", "js/reviews.js"];</script>
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

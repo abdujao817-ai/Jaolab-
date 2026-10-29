@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Categories - Jao Lab Fashion & Styles</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .cat-head { position: sticky; top: 0; z-index: 15; background: #111; padding: 12px 12px 8px; }
+    .cat-bar { display: flex; gap: 8px; margin-top: 10px; }
+    .cat-bar select { flex: 1; height: 44px; background: #1a1a1a; color: #fff; border: 1px solid #333; border-radius: 12px; padding: 0 10px; font-size: 15px; }
+    .cat-fbtn { height: 44px; background: #1a1a1a; color: #fff; border: 1px solid #333; border-radius: 12px; padding: 0 16px; font-size: 15px; white-space: nowrap; }
+    .cat-fbtn.on { border-color: #ff6a00; color: #ff6a00; }
+
+    .cat-wrap { display: flex; align-items: flex-start; }
+    .cat-rail { width: 92px; flex-shrink: 0; position: sticky; overflow-y: auto; background: #161616; }
+    .cat-item { display: block; width: 100%; background: none; border: none; border-left: 4px solid transparent; color: #aaa; text-align: left; font-size: 14px; padding: 16px 6px 16px 10px; }
+    .cat-item small { display: block; color: #666; font-size: 11px; margin-top: 2px; }
+    .cat-item.on { background: #111; color: #fff; font-weight: bold; border-left-color: #ff6a00; }
+
+    .cat-main { flex: 1; min-width: 0; }
+    .cat-info { display: flex; justify-content: space-between; color: #aaa; font-size: 13px; padding: 10px 12px 0; }
+    .cat-main .grid { padding: 8px 10px; gap: 8px; }
+    .cat-main .photo { height: 120px !important; }
+    .cat-main .name { font-size: 13px; }
+    .cat-empty { text-align: center; color: #aaa; padding: 50px 20px; line-height: 1.6; }
+    .cat-more { display: none; width: calc(100% - 20px); margin: 6px 10px 20px; background: #1a1a1a; color: #fff; border: 1px solid #444; border-radius: 22px; padding: 13px; font-size: 15px; }
+
+    .so-badge { position: absolute; top: 6px; left: 6px; background: #c0392b; color: #fff; font-size: 11px; font-weight: bold; border-radius: 10px; padding: 3px 8px; }
+    .low-badge { background: #b8741a; }
+    .card.soldout { opacity: 0.55; }
+
+    .cat-sheet { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.7); display: none; align-items: flex-end; z-index: 50; }
+    .cat-sheet.show { display: flex; }
+    .cat-sheet-box { background: #1f1f1f; width: 100%; border-radius: 20px 20px 0 0; padding: 20px 16px 24px; }
+    .cat-sheet-box h3 { font-size: 19px; margin-bottom: 14px; }
+    .cat-sheet-box label.t { display: block; color: #aaa; font-size: 13px; margin-bottom: 6px; }
+    .cat-prices { display: flex; gap: 10px; margin-bottom: 16px; }
+    .cat-prices input { flex: 1; min-width: 0; height: 48px; background: #111; color: #fff; border: 1px solid #333; border-radius: 12px; padding: 0 12px; font-size: 16px; }
+    .cat-check { display: flex; align-items: center; gap: 10px; font-size: 15px; margin-bottom: 18px; }
+    .cat-check input { width: 22px; height: 22px; accent-color: #ff6a00; }
+    .cat-sheet-btns { display: flex; gap: 10px; }
+    .cat-sheet-btns button { flex: 1; height: 50px; border-radius: 25px; font-size: 16px; border: 1px solid #666; background: none; color: #fff; }
+    .cat-sheet-btns button.main { background: #ff6a00; border-color: #ff6a00; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+  <div class="cat-head">
+    <div class="search">
+      <input type="text" id="cat-search" placeholder="Search fashion...">
+      <button type="button" id="cat-search-btn">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      </button>
+    </div>
+    <div class="cat-bar">
+      <select id="cat-sort" aria-label="Sort products">
+        <option value="recommended">Sort: Recommended</option>
+        <option value="newest">Sort: Newest</option>
+        <option value="price-asc">Sort: Price, low to high</option>
+        <option value="price-desc">Sort: Price, high to low</option>
+        <option value="name">Sort: Name A to Z</option>
+      </select>
+      <button type="button" class="cat-fbtn" id="cat-fbtn">Filters</button>
+    </div>
+  </div>
+
+  <div class="cat-wrap">
+    <div class="cat-rail" id="cat-rail"></div>
+    <div class="cat-main">
+      <div class="cat-info"><span id="cat-title">All</span><span id="cat-count"></span></div>
+      <section class="grid" id="cat-grid"></section>
+      <button type="button" class="cat-more" id="cat-more">Load more</button>
+    </div>
+  </div>
+
+  <div class="cat-sheet" id="cat-sheet">
+    <div class="cat-sheet-box">
+      <h3>Filters</h3>
+      <label class="t">Price range (₦)</label>
+      <div class="cat-prices">
+        <input type="number" id="f-min" placeholder="Min" inputmode="numeric" min="0">
+        <input type="number" id="f-max" placeholder="Max" inputmode="numeric" min="0">
+      </div>
+      <label class="cat-check"><input type="checkbox" id="f-stock"> Show items in stock only</label>
+      <div class="cat-sheet-btns">
+        <button type="button" id="f-reset">Reset</button>
+        <button type="button" class="main" id="f-apply">Apply</button>
+      </div>
+    </div>
+  </div>
+
+  <nav class="bottom-nav">
+    <a href="index.html">
+      <svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg>
+      <span>Home</span>
+    </a>
+    <a href="categories.html" class="active">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      <span>Categories</span>
+    </a>
+    <a href="wishlist.html">
+      <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      <span>Wishlist</span>
+    </a>
+    <a href="you.html">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
+      <span>You</span>
+    </a>
+    <a href="cart.html">
+      <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
+      <span>Cart</span>
+      <span class="badge" id="cart-count"></span>
+    </a>
+  </nav>
+
+  <script>window.afterApp = ["js/categories.js", "js/wishlist.js"];</script>
+  <script>window.afterApp = ["js/stock.js", "js/wishlist.js", "js/reviews.js"];</script>
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

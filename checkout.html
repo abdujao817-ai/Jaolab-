@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Checkout - Jao Lab Fashion & Styles</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="topbar">
+    <a href="cart.html" class="back">←</a>
+    <h1>Checkout</h1>
+  </div>
+
+  <div id="checkout-page">
+
+    <section class="panel">
+      <h2>Delivery details</h2>
+      <div class="field">
+        <label for="full-name">Full name</label>
+        <input type="text" id="full-name" placeholder="Your full name">
+      </div>
+      <div class="field">
+        <label for="phone">Phone number</label>
+        <input type="tel" id="phone" placeholder="080...">
+      </div>
+      <div class="field">
+        <label for="email">Email (required for installment plans)</label>
+        <input type="email" id="email" placeholder="you@example.com">
+      </div>
+      <div class="field">
+        <label for="state">State</label>
+        <select id="state">
+          <option value="">Select your state</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="address">Delivery address</label>
+        <textarea id="address" rows="3" placeholder="House number, street, area, city"></textarea>
+      </div>
+      <div class="field">
+        <label for="notes">Delivery notes (optional)</label>
+        <input type="text" id="notes" placeholder="Landmark or instructions">
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Order summary</h2>
+      <div id="order-summary"></div>
+    </section>
+
+    <section class="panel">
+      <h2>Payment: bank transfer</h2>
+      <p class="hint">Send the amount below, then upload your receipt.</p>
+      <div class="bank-box" id="bank-details"></div>
+      <div class="field">
+        <label for="receipt">Upload payment receipt</label>
+        <input type="file" id="receipt" accept="image/*,application/pdf">
+      </div>
+      <p class="error" id="error-msg"></p>
+      <button class="start-plan" id="place-order">Place order</button>
+    </section>
+
+  </div>
+
+  <script>window.afterApp = "js/checkout.js";</script>
+  <script>window.afterApp = "js/prefill.js";</script>
+  <script>window.afterApp = ["js/prefill.js", "js/referral.js", "js/variants.js", "js/delivery.js"];</script>
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/gate.js"></script>
+</body>
+</html>

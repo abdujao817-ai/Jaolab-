@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My profile - Jao Lab Fashion & Styles</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .pf-av { position: relative; width: 76px; height: 76px; flex-shrink: 0; }
+    .pf-photo { width: 76px; height: 76px; border-radius: 50%; background: #ff6a00 center/cover no-repeat; display: flex; align-items: center; justify-content: center; font-size: 30px; font-weight: bold; }
+    .pf-edit { position: absolute; right: -2px; bottom: -2px; width: 28px; height: 28px; border-radius: 50%; background: #fff; display: flex; align-items: center; justify-content: center; }
+    .pf-edit svg { width: 15px; height: 15px; fill: none; stroke: #ff6a00; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+    .pf-name { font-size: 19px; font-weight: bold; }
+    .pf-mail { color: #aaa; font-size: 13px; margin-top: 3px; word-break: break-all; }
+    .pf-since { color: #888; font-size: 12px; margin-top: 3px; }
+    .pf-remove { background: none; border: none; color: #aaa; font-size: 13px; margin-top: 6px; padding: 0; display: none; }
+    .rf-code { display: flex; align-items: center; justify-content: space-between; gap: 10px; background: #222; border: 1px dashed #ff6a00; border-radius: 12px; padding: 12px 14px; margin: 10px 0; }
+    .rf-code strong { font-size: 22px; letter-spacing: 2px; color: #ff6a00; }
+    .rf-btns { display: flex; gap: 8px; }
+    .rf-btns button { background: none; border: 1px solid #666; color: #fff; border-radius: 20px; padding: 9px 14px; font-size: 14px; }
+  </style>
+</head>
+<body>
+
+  <div class="acct-head">
+    <h1>My profile</h1>
+  </div>
+
+  <p id="load-error" class="error" style="display:none; padding:0 16px">
+    A script file did not load. Check that js/data.js, js/auth.js and js/account.js exist inside the Jaolab/js folder.
+  </p>
+
+  <div class="profile-card">
+    <div class="pf-av">
+      <div class="pf-photo" id="pf-photo">?</div>
+      <label class="pf-edit">
+        <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+        <input type="file" id="av-file" accept="image/*" hidden>
+      </label>
+    </div>
+    <div>
+      <p class="pf-name" id="pf-title">Your name</p>
+      <p class="pf-mail" id="pf-email"></p>
+      <p class="pf-since" id="pf-since"></p>
+      <button class="pf-remove" id="av-remove">Remove photo</button>
+    </div>
+  </div>
+  <p class="error" id="av-msg" style="padding:0 16px"></p>
+
+  <div class="tiles">
+    <a href="orders.html" class="tile">
+      <span class="row-ico"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></span>
+      Your orders
+    </a>
+    <a href="cart.html" class="tile">
+      <span class="row-ico"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg></span>
+      My cart
+    </a>
+  </div>
+
+  <section class="panel">
+    <h2>Refer a friend</h2>
+    <p class="hint">Friends can enter your code when they sign up.</p>
+    <div class="rf-code">
+      <strong id="rf-code">------</strong>
+      <div class="rf-btns">
+        <button id="rf-copy">Copy</button>
+        <button id="rf-share" style="display:none">Share</button>
+      </div>
+    </div>
+    <p class="hint" id="rf-count"></p>
+    <p class="hint" id="rf-credit" style="color:#4cd964"></p>
+    <p class="hint" id="rf-terms"></p>
+  </section>
+
+  <section class="panel">
+    <h2>Personal details</h2>
+    <p class="hint">Saved here, and filled in for you at checkout.</p>
+    <div class="field">
+      <label for="pf-name-in">Full name</label>
+      <input type="text" id="pf-name-in">
+    </div>
+    <div class="field">
+      <label for="pf-phone">Phone number</label>
+      <input type="tel" id="pf-phone">
+    </div>
+    <div class="field">
+      <label for="pf-state">State</label>
+      <select id="pf-state"><option value="">Select your state</option></select>
+    </div>
+    <div class="field">
+      <label for="pf-address">Delivery address</label>
+      <textarea id="pf-address" rows="3" placeholder="House number, street, area, city"></textarea>
+    </div>
+    <p class="error" id="pf-msg"></p>
+    <button class="start-plan" id="pf-save">Save details</button>
+  </section>
+
+  <div class="menu-card">
+    <a class="row" href="info.html?page=contact">
+      <span class="row-ico"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>
+      <span class="row-text">Help and contact</span><span class="chev">›</span>
+    </a>
+    <a class="row" href="info.html?page=privacy">
+      <span class="row-ico"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+      <span class="row-text">Privacy Policy</span><span class="chev">›</span>
+    </a>
+    <a class="row" href="info.html?page=terms">
+      <span class="row-ico"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span>
+      <span class="row-text">Terms &amp; Conditions</span><span class="chev">›</span>
+    </a>
+    <a class="row" id="delete-link" href="mailto:jaolabreviews817@gmail.com?subject=Account%20deletion%20request">
+      <span class="row-ico"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg></span>
+      <span class="row-text">Request account deletion</span><span class="chev">›</span>
+    </a>
+    <a class="row" href="#" id="logout-btn">
+      <span class="row-ico"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>
+      <span class="row-text">Log out</span><span class="chev">›</span>
+    </a>
+  </div>
+
+  <nav class="bottom-nav">
+    <a href="index.html">
+      <svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg>
+      <span>Home</span>
+    </a>
+    <a href="categories.html">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      <span>Categories</span>
+    </a>
+    <a href="wishlist.html">
+      <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      <span>Wishlist</span>
+    </a>
+    <a href="you.html" class="active">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
+      <span>You</span>
+    </a>
+    <a href="cart.html">
+      <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
+      <span>Cart</span>
+      <span class="badge" id="cart-count"></span>
+    </a>
+  </nav>
+
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/account.js"></script>
+  <script>
+    setTimeout(function () {
+      if (typeof Auth === "undefined" || !window.accountReady) {
+        document.getElementById("load-error").style.display = "block";
+      }
+    }, 1500);
+  </script>
+</body>
+</html>
